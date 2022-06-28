@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start!@@"
+  - docker build -t kimst214/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true kimst214/docker-react-app  npm run test -- --coverage
+
+after_success:
+  - echo "Test success"
